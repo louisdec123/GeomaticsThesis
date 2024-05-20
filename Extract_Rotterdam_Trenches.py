@@ -40,18 +40,18 @@ def extract_dxf_data(filepath):
     cable_data_split = []
     for info in cable_info_cleaned:
         parts = info.split(maxsplit=2)
-        if len(parts) > 2 and '-' in parts[2]:  # Has description with dash
+        if len(parts) > 2 and '-' in parts[2]:  
             description_parts = parts[2].split(' - ', 1)
             if len(description_parts) == 2:
-                parts[2] = description_parts[1]  # Replace with just the description
+                parts[2] = description_parts[1]  
         cable_data_split.append(parts)
 
     # Combine nearest trench label with split cable information
     combined_data = []
     for trench_label, cable_data in zip(nearest_trench_labels, cable_data_split):
-        if len(cable_data) == 3:  # Has description
+        if len(cable_data) == 3:  
             distance, height, description = cable_data
-        else:  # No description, just distance and height
+        else:  
             distance, height = cable_data
             description = ''
         combined_data.append([trench_label, distance, height, description])
@@ -67,9 +67,9 @@ def write_to_csv(filepath, data):
 
 
 # Replace 'filepath' with the path to your DXF file
-dxf_filepath = "C:/Users/louis/Desktop/Thesis/Rotterdam/Levering_Graafprofielen_TU/Profiel 1 tm 114.dxf"
+dxf_filepath = "filepath"
 combined_data = extract_dxf_data(dxf_filepath)
 
 # Specify the CSV file path where you want to save the output
-csv_filepath = "C:/Users/louis/Desktop/Thesis/extracted_cable_info.csv"
+csv_filepath = "..../extracted_cable_info.csv"
 write_to_csv(csv_filepath, combined_data)
